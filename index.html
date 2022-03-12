@@ -26,11 +26,59 @@
       sizes="16x16"
       href="./assets/images/favicon/favicon-16x16.svg"
     />
-    <link rel="manifest" href="./assets/images/favicon/site.webmanifests" />
+    <!-- <link rel="manifest" href="./assets/images/favicon/site.webmanifests" /> -->
     <!-- 
       manifest "site.manifest" modified from version provided by https://favicon.io/favicon-generator/ 
   --></head>
   <body>
+    <section class="visible" id="startGameView">
+      <a>View Highscores</a>
+      <div id="preGameTimer"></div>
+      <h1>Coding Quiz Challenge</h1>
+      <p>
+        Try to answer the following code-related questions within the time
+        limit. Keep in mind that incorrect answers will penalize your score/time
+        by ten seconds!
+      </p>
+      <button id="startGameBtn">Start Quiz</button>
+    </section>
+
+    <section class="hidden" id="inGameView">
+      <a>View Highscores</a>
+      <div id="inGameTimer"></div>
+      <!--This will need to be fixed.... can't have the ID set up this way. -->
+      <h2 id="questionText">question Text</h2>
+      <button class="ansBtn" id="ans1Btn">answer 1</button>
+      <button class="ansBtn" id="ans2Btn">answer 2</button>
+      <button class="ansBtn" id="ans3Btn">answer 3</button>
+      <button class="ansBtn" id="ans4Btn">answer 4</button>
+      <p id="resultText">result text</p>
+    </section>
+
+    <section class="hidden" id="postGameView">
+      <a>View Highscores</a>
+      <div id="postGameTimer"></div>
+      <!--This will need to be fixed.... can't have the ID set up this way. -->
+      <h2>All done!</h2>
+      <p>Your final score is...</p>
+      <p>Enter initials</p>
+      <form></form>
+      <button id="submitBtn">Submit</button>
+    </section>
+
+    <section class="hidden" id="highscoreView">
+      <h1>Highscores</h1>
+      <ol>
+        <li>AV 01</li>
+        <li>AV 02</li>
+        <li>AV 03</li>
+        <li>AV 04</li>
+        <li>AV 05</li>
+      </ol>
+      <button id="goBackBtn">Go Back</button>
+      <button id="clearScoresBtn">Clear Highscores</button>
+    </section>
+
     <!-- calls in the javascript file -->
     <script src="./assets/script/script.js"></script>
   </body>

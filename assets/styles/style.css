@@ -4,3 +4,11 @@
   --lightColor: #ffffff;
   --lightColor75: #ffffffbf;
 }
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
