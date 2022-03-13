@@ -4,38 +4,38 @@ console.log("code quiz");
 
 const Q1 = {
   question: "This is the Question 1 text",
-  correct: "This is correct",
-  wrong1: "this is wrong",
-  wrong2: "this is wrong",
-  wrong3: "this is wrong",
+  correct: "Q1Correct",
+  wrong1: "Q1Wrong1",
+  wrong2: "Q1Wrong2",
+  wrong3: "Q1Wrong3",
 };
 const Q2 = {
   question: "This is the Question 2 text",
-  correct: "This is correct",
-  wrong1: "this is wrong",
-  wrong2: "this is wrong",
-  wrong3: "this is wrong",
+  correct: "Q2Correct",
+  wrong1: "Q2Wrong1",
+  wrong2: "Q2Wrong2",
+  wrong3: "Q2Wrong3",
 };
 const Q3 = {
   question: "This is the Question 3 text",
-  correct: "This is correct",
-  wrong1: "this is wrong",
-  wrong2: "this is wrong",
-  wrong3: "this is wrong",
+  correct: "Q3Correct",
+  wrong1: "Q3Wrong1",
+  wrong2: "Q3Wrong2",
+  wrong3: "Q3Wrong3",
 };
 const Q4 = {
   question: "This is the Question 4 text",
-  correct: "This is correct",
-  wrong1: "this is wrong",
-  wrong2: "this is wrong",
-  wrong3: "this is wrong",
+  correct: "Q4Correct",
+  wrong1: "Q4Wrong1",
+  wrong2: "Q4Wrong2",
+  wrong3: "Q4Wrong3",
 };
 const Q5 = {
   question: "This is the Question 5 text",
-  correct: "This is correct",
-  wrong1: "this is wrong",
-  wrong2: "this is wrong",
-  wrong3: "this is wrong",
+  correct: "Q5Correct",
+  wrong1: "Q5Wrong1",
+  wrong2: "Q5Wrong2",
+  wrong3: "Q5Wrong13",
 };
 const questionList = [Q1, Q2, Q3, Q4, Q5];
 let i = 0;
@@ -43,6 +43,8 @@ let finalScore;
 let timeLeft;
 let answerArray = [];
 let question;
+let timerInterval;
+let scoresArray = [];
 
 // This section defines querySelectors that will be used frequently..
 const body = document.body;
@@ -67,18 +69,15 @@ const clearScoresBtn = document.querySelector("#clearScoresBtn");
  * startQuizTimer starts a countdown that is used to end the quiz if the user takes too long, and to log a score after the quiz is completed.
  */
 function startQuizTimer() {
-  timeLeft = 60; // time in seconds left for the quiz change to 75 when ready to deploy
-  let timerInterval = setInterval(function () {
+  timeLeft = 20; // time in seconds left for the quiz change to 75 when ready to deploy
+  timerInterval = setInterval(function () {
     timeLeft--;
     console.log(timeLeft);
     inGameTimer.textContent = `Time: ${timeLeft}`;
     if (timeLeft <= 0 || i == questionList.length) {
       clearInterval(timerInterval);
-      inGameView.classList.remove("visible");
-      inGameView.classList.add("hidden");
-      postGameView.classList.remove("hidden");
-      postGameView.classList.add("visible");
-      console.log("game ended");
+      timeLeft = Math.max(0, timeLeft);
+      endGame();
     }
   }, 1000);
 }
@@ -105,8 +104,9 @@ function wrongAnswerClicked() {
 function nextQuestion() {
   answerArray = []; //reinitialize variable.
   if (i == questionList.length) {
-    finalScore = timeLeft; // might need to put some error handling in here, if timeLeft is negative (wrong answer clicked with less than 10 seconds left)
-    console.log(`finalScore: ${finalScore}`);
+    timeLeft = Math.max(0, timeLeft);
+    clearInterval(timerInterval);
+    endGame();
     return;
   } else {
     question = questionList[i];
@@ -116,7 +116,7 @@ function nextQuestion() {
       question.wrong2,
       question.wrong3,
     ];
-    for (j = 0; j < 4; j++) {
+    for (j = 0; j < questionAnswers.length; j++) {
       let randOrder = Math.floor(Math.random() * 2);
       console.log(`randOrder: ${randOrder}`);
       if (randOrder == 0) {
@@ -133,6 +133,40 @@ function nextQuestion() {
     ans3Btn.textContent = answerArray[2];
     ans4Btn.textContent = answerArray[3];
   }
+}
+
+function endGame() {
+  finalScore = timeLeft; // might need to put some error handling in here, if timeLeft is negative (wrong answer clicked with less than 10 seconds left)
+  console.log(`finalScore: ${finalScore}`);
+  inGameView.classList.remove("visible");
+  inGameView.classList.add("hidden");
+  postGameView.classList.remove("hidden");
+  postGameView.classList.add("visible");
+  console.log("game ended");
+  document.querySelector("#initials").value = "";
+}
+
+function displayHighscores() {
+  let scoreString = "<ol>";
+  let highScoreList = document.createElement("div");
+  highScoreList.setAttribute("id", "createdHighScoreList");
+  scoresArray.forEach(function (scoreLi) {
+    let initials = scoreLi.initials;
+    let score = scoreLi.score;
+    console.log(initials);
+    console.log(score);
+    scoreString += `<li> ${score} --- ${initials} </li>`;
+  });
+  scoreString += "</ol>";
+
+  console.log(scoreString);
+  document.querySelector("#highscoreView").appendChild(highScoreList);
+  highScoreList.innerHTML = scoreString;
+
+  postGameView.classList.remove("visible");
+  postGameView.classList.add("hidden");
+  highscoreView.classList.remove("hidden");
+  highscoreView.classList.add("visible");
 }
 
 // button listeners
@@ -197,26 +231,48 @@ ans4Btn.addEventListener("click", function () {
 });
 
 // submit button submits the users initials to the high score list.  It hides the postGameScreen, and enables the highscoreScreen
-submitBtn.addEventListener("click", function () {
+submitBtn.addEventListener("click", function (event) {
   // update high score list
+  event.preventDefault(); // this prevents the form default action.
+  let newScoreInitials = document.querySelector("#initials").value;
+  console.log(newScoreInitials);
 
-  // change screen
-  postGameView.classList.remove("visible");
-  postGameView.classList.add("hidden");
-  highscoreView.classList.remove("hidden");
-  highscoreView.classList.add("visible");
+  let newScore = {
+    initials: newScoreInitials,
+    score: finalScore,
+  };
+  if (scoresArray.length === 0) {
+    scoresArray.push(newScore);
+  } else {
+    for (let i = 0; i < scoresArray.length; i++) {
+      if (finalScore >= scoresArray[i].score) {
+        console.log(i);
+        scoresArray.splice(i, 0, newScore);
+        break;
+      }
+    }
+  }
+  console.log(newScore);
+  console.log(scoresArray);
+
+  // change to high score screen
+  displayHighscores();
 });
 
 // go back button returns the user to the startGameScreen.  it also reinitializes the timer and the for loop iterator.
 goBackBtn.addEventListener("click", function () {
-  timeLeft = 60;
+  timeLeft = 20;
   inGameTimer.textContent = `Time: ${timeLeft}`;
   highscoreView.classList.remove("visible");
   highscoreView.classList.add("hidden");
   startGameView.classList.remove("hidden");
   startGameView.classList.add("visible");
   i = 0;
+  document.querySelector("#createdHighScoreList").remove();
 });
 
 // cleawr scores button wipes the scores out of the highscore list
-clearScoresBtn.addEventListener("click", function () {});
+clearScoresBtn.addEventListener("click", function () {
+  scoresArray = [];
+  console.log(scoresArray);
+});

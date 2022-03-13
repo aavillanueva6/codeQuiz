@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Code Quiz</title>
     <!-- links the stylesheets -->
-    <link rel="stylesheet" type="text/css" href="./assets/styles/reset.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="./assets/styles/reset.css" /> -->
     <link rel="stylesheet" type="text/css" href="./assets/styles/style.css" />
     <!-- links the favicon -->
     <link
@@ -61,9 +61,19 @@
       <!--This will need to be fixed.... can't have the ID set up this way. -->
       <h2>All done!</h2>
       <p>Your final score is...</p>
-      <p>Enter initials</p>
-      <form></form>
-      <button id="submitBtn">Submit</button>
+      <form>
+        <label for="initials">Enter Your Initials:</label><br />
+        <input
+          type="text"
+          name="initials"
+          id="initials"
+          required
+          autocomplete="off"
+        /><br />
+        <input type="submit" value="Submit" id="submitBtn" /><br />
+      </form>
+      <!-- <button id="submitBtn">Submit</button> -->
+      <!-- I think the above <button> should be removed, but leaving in until I make sure I don't break things further -->
     </section>
 
     <section class="hidden" id="highscoreView">
