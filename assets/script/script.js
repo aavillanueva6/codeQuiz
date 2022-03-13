@@ -70,16 +70,17 @@ const clearScoresBtn = document.querySelector("#clearScoresBtn");
  */
 function startQuizTimer() {
   timeLeft = 20; // time in seconds left for the quiz change to 75 when ready to deploy
+  inGameTimer.textContent = `Time: ${timeLeft}`; // displays the initial time for the game
   timerInterval = setInterval(function () {
     timeLeft--;
+    inGameTimer.textContent = `Time: ${timeLeft}`; // displays the remaining time for the game
     console.log(timeLeft);
-    inGameTimer.textContent = `Time: ${timeLeft}`;
     if (timeLeft <= 0 || i == questionList.length) {
       clearInterval(timerInterval);
       timeLeft = Math.max(0, timeLeft);
       endGame();
     }
-  }, 1000);
+  }, 1000); // executes once every second
 }
 
 /**
@@ -138,6 +139,8 @@ function nextQuestion() {
 function endGame() {
   finalScore = timeLeft; // might need to put some error handling in here, if timeLeft is negative (wrong answer clicked with less than 10 seconds left)
   console.log(`finalScore: ${finalScore}`);
+
+  // classList.remove and .add are used to change which screen is visible.
   inGameView.classList.remove("visible");
   inGameView.classList.add("hidden");
   postGameView.classList.remove("hidden");
@@ -163,6 +166,7 @@ function displayHighscores() {
   document.querySelector("#highscoreView").appendChild(highScoreList);
   highScoreList.innerHTML = scoreString;
 
+  // classList.remove and .add are used to change which screen is visible.
   postGameView.classList.remove("visible");
   postGameView.classList.add("hidden");
   highscoreView.classList.remove("hidden");
@@ -175,6 +179,7 @@ startBtn.addEventListener("click", function () {
   console.log("start button clicked");
   startQuizTimer();
   console.log("after timer call");
+  // classList.remove and .add are used to change which screen is visible.
   startGameView.classList.remove("visible");
   startGameView.classList.add("hidden");
   inGameView.classList.remove("hidden");
@@ -240,15 +245,17 @@ submitBtn.addEventListener("click", function (event) {
   let newScore = {
     initials: newScoreInitials,
     score: finalScore,
-  };
+  }; // object storing initials and final score on each attempt
+  // this adds newScore to the scoresArray if it is the first time a score is logged
   if (scoresArray.length === 0) {
     scoresArray.push(newScore);
   } else {
+    // this else identifies where the newest score needs to be added to the array to have the scores in descending order.  Splices newScore into scoresArray at appropriate index
     for (let i = 0; i < scoresArray.length; i++) {
       if (finalScore >= scoresArray[i].score) {
         console.log(i);
         scoresArray.splice(i, 0, newScore);
-        break;
+        break; // exits the for loop once the newScore is added to the scoresArray.
       }
     }
   }
@@ -259,20 +266,21 @@ submitBtn.addEventListener("click", function (event) {
   displayHighscores();
 });
 
-// go back button returns the user to the startGameScreen.  it also reinitializes the timer and the for loop iterator.
+// go back button returns the user from the highscoreScreen to the startGameScreen.  it also reinitializes the timer and the for iterator.
 goBackBtn.addEventListener("click", function () {
   timeLeft = 20;
   inGameTimer.textContent = `Time: ${timeLeft}`;
+  // classList.remove and .add are used to change which screen is visible.
   highscoreView.classList.remove("visible");
   highscoreView.classList.add("hidden");
   startGameView.classList.remove("hidden");
   startGameView.classList.add("visible");
   i = 0;
-  document.querySelector("#createdHighScoreList").remove();
+  document.querySelector("#createdHighScoreList").remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
 });
 
-// cleawr scores button wipes the scores out of the highscore list
+// clear scores button wipes the scores out of the highscore list
 clearScoresBtn.addEventListener("click", function () {
   scoresArray = [];
-  console.log(scoresArray);
+  document.querySelector("#createdHighScoreList").classList.add("hidden");
 });
