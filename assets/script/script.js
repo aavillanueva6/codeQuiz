@@ -113,8 +113,6 @@ function resetFlash() {
  */
 function nextQuestion() {
   answerArray = []; //reinitialize variable.
-  // body.classList.remove("correctAns");
-  // body.classList.remove("wrongAns");
   if (i == questionList.length) {
     timeLeft = Math.max(0, timeLeft);
     clearInterval(timerInterval);
@@ -167,8 +165,8 @@ function displayHighscores() {
   scoresArray.forEach(function (scoreLi) {
     let initials = scoreLi.initials;
     let score = scoreLi.score;
-    console.log(initials);
-    console.log(score);
+    console.log(`new iniitials: ${initials}`);
+    console.log(`new score: ${score}`);
     scoreString += `<li> ${score} --- ${initials} </li>`;
   });
   scoreString += "</ol>";
@@ -178,6 +176,10 @@ function displayHighscores() {
   highScoreList.innerHTML = scoreString;
 
   // classList.remove and .add are used to change which screen is visible.
+  startGameView.classList.remove("visible");
+  startGameView.classList.add("hidden");
+  inGameView.classList.remove("visible");
+  inGameView.classList.add("hidden");
   postGameView.classList.remove("visible");
   postGameView.classList.add("hidden");
   highscoreView.classList.remove("hidden");
@@ -263,11 +265,15 @@ submitBtn.addEventListener("click", function (event) {
   } else {
     // this else identifies where the newest score needs to be added to the array to have the scores in descending order.  Splices newScore into scoresArray at appropriate index
     for (let i = 0; i < scoresArray.length; i++) {
-      if (finalScore >= scoresArray[i].score) {
+      if (finalScore > scoresArray[i].score) {
         console.log(i);
         scoresArray.splice(i, 0, newScore);
         break; // exits the for loop once the newScore is added to the scoresArray.
       }
+    }
+    let testNumber = scoresArray[scoresArray.length - 1].score;
+    if (finalScore <= testNumber) {
+      scoresArray.push(newScore);
     }
   }
   console.log(newScore);
@@ -295,3 +301,9 @@ clearScoresBtn.addEventListener("click", function () {
   scoresArray = [];
   document.querySelector("#createdHighScoreList").classList.add("hidden");
 });
+
+body
+  .querySelector("#preGameHighScoreLink")
+  .addEventListener("click", function () {
+    displayHighscores();
+  });
