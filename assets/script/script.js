@@ -88,6 +88,8 @@ function startQuizTimer() {
  */
 function correctAnswerClicked() {
   console.log("correct answer");
+  body.classList.add("correctAns");
+  setTimeout(resetFlash, 250);
 }
 
 /**
@@ -97,6 +99,13 @@ function wrongAnswerClicked() {
   console.log("wrong answer");
   timeLeft -= 10;
   timeLeft = Math.max(0, timeLeft);
+  body.classList.add("wrongAns");
+  setTimeout(resetFlash, 250);
+}
+
+function resetFlash() {
+  body.classList.remove("correctAns");
+  body.classList.remove("wrongAns");
 }
 
 /**
@@ -104,6 +113,8 @@ function wrongAnswerClicked() {
  */
 function nextQuestion() {
   answerArray = []; //reinitialize variable.
+  // body.classList.remove("correctAns");
+  // body.classList.remove("wrongAns");
   if (i == questionList.length) {
     timeLeft = Math.max(0, timeLeft);
     clearInterval(timerInterval);

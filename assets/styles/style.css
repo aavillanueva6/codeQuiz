@@ -3,6 +3,10 @@
   --darkColor75: #000000bf;
   --lightColor: #ffffff;
   --lightColor75: #ffffffbf;
+  --green: #00b000;
+  --green1: #00b00003;
+  --red: #b00000;
+  --red1: #b0000003;
 }
 
 .visible {
@@ -11,4 +15,47 @@
 
 .hidden {
   display: none;
+}
+
+.correctAns {
+  animation-name: greenFlash;
+  animation-duration: 0.25s;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+}
+
+@keyframes greenFlash {
+  0% {
+    background-color: var(--green);
+  }
+  1% {
+    background-color: var(--green);
+  }
+  99% {
+    background-color: var(--green1);
+  }
+  100% {
+    background-color: none;
+  }
+}
+.wrongAns {
+  animation-name: redFlash;
+  animation-duration: 0.25s;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+}
+
+@keyframes redFlash {
+  0% {
+    background-color: var(--red);
+  }
+  1% {
+    background-color: var(--red);
+  }
+  99% {
+    background-color: var(--red1);
+  }
+  100% {
+    background-color: none;
+  }
 }
