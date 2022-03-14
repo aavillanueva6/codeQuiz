@@ -1,3 +1,4 @@
+/* application wide styling */
 :root {
   --darkColor: #000000;
   --darkColor75: #000000bf;
@@ -7,6 +8,13 @@
   --green1: #00b00003;
   --red: #b00000;
   --red1: #b0000003;
+  --oldGold: #c28e0e;
+  --lightGold: #ceb888;
+}
+
+body {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .visible {
@@ -17,20 +25,64 @@
   display: none;
 }
 
-.highscoreLink {
+button,
+#submitBtn {
+  background-color: var(--oldGold);
+  padding: 8px;
+  font-size: larger;
+  font-weight: bolder;
+  color: var(--lightColor);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  border-radius: 5px;
+}
+
+button:active,
+#submitBtn:active {
+  color: var(--darkColor);
+  background-color: var(--lightGold);
+}
+
+/* preGame screen styling */
+#startGameView .highscoreLink {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.timerDisplay {
+#startGameView .timerDisplay {
   position: absolute;
   top: 0;
   right: 5px;
 }
 
-.pageTitle {
-  margin-top: 15px;
+#startGameView .pageTitle {
+  margin-top: 30px;
+  font-size: 200%;
+  font-weight: 600;
+}
+
+#preGameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#preGameContainer p {
+  max-width: 40%;
+  text-align: center;
+  margin: 1em 0;
+}
+
+/* inGame screen styling */
+#inGameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#inGameContainer h2 {
+  font-size: 150%;
 }
 
 .correctAns {
@@ -74,4 +126,12 @@
   100% {
     background-color: none;
   }
+}
+
+/* postGame screen styling */
+
+/* highScore screen styling */
+#highscoreView ol {
+  list-style: decimal;
+  margin: 20px;
 }

@@ -34,46 +34,49 @@
     <section class="visible" id="startGameView">
       <a class="highscoreLink" id="preGameHighScoreLink">View Highscores</a>
       <div class="timerDisplay" id="preGameTimer">Time: 20</div>
-      <h1 class="pageTitle">Coding Quiz Challenge</h1>
-      <p>
-        Try to answer the following code-related questions within the time
-        limit. Keep in mind that incorrect answers will penalize your score/time
-        by ten seconds!
-      </p>
-      <button id="startGameBtn">Start Quiz</button>
+      <div id="preGameContainer">
+        <h1 class="pageTitle">Coding Quiz Challenge</h1>
+        <p>
+          Try to answer the following code-related questions within the time
+          limit. Keep in mind that incorrect answers will penalize your
+          score/time by ten seconds!
+        </p>
+        <button id="startGameBtn">Start Quiz</button>
+      </div>
     </section>
 
     <section class="hidden" id="inGameView">
       <a class="highscoreLink">View Highscores</a>
       <div class="timerDisplay" id="inGameTimer"></div>
-      <!--This will need to be fixed.... can't have the ID set up this way. -->
-      <h2 id="questionText">question Text</h2>
-      <button class="ansBtn" id="ans1Btn">answer 1</button>
-      <button class="ansBtn" id="ans2Btn">answer 2</button>
-      <button class="ansBtn" id="ans3Btn">answer 3</button>
-      <button class="ansBtn" id="ans4Btn">answer 4</button>
-      <p id="resultText">result text</p>
+      <div id="inGameContainer">
+        <h2 id="questionText">question Text</h2>
+        <button class="ansBtn" id="ans1Btn">answer 1</button>
+        <button class="ansBtn" id="ans2Btn">answer 2</button>
+        <button class="ansBtn" id="ans3Btn">answer 3</button>
+        <button class="ansBtn" id="ans4Btn">answer 4</button>
+        <!-- <p id="resultText">result text</p> -->
+        <!-- I think I can get rid of the p above.  instead of popping up text, I changed to a green or red flash for correct / incorrect -->
+      </div>
     </section>
 
     <section class="hidden" id="postGameView">
       <a class="highscoreLink">View Highscores</a>
       <div class="timerDisplay" id="postGameTimer"></div>
-      <!--This will need to be fixed.... can't have the ID set up this way. -->
-      <h2>All done!</h2>
-      <p>Your final score is...</p>
-      <form>
-        <label for="initials">Enter Your Initials:</label><br />
-        <input
-          type="text"
-          name="initials"
-          id="initials"
-          required
-          autocomplete="off"
-        /><br />
-        <input type="submit" value="Submit" id="submitBtn" /><br />
-      </form>
-      <!-- <button id="submitBtn">Submit</button> -->
-      <!-- I think the above <button> should be removed, but leaving in until I make sure I don't break things further -->
+      <div id="postGameContainer">
+        <h2>All done!</h2>
+        <p>Your final score is...</p>
+        <form>
+          <label for="initials">Enter Your Initials:</label><br />
+          <input
+            type="text"
+            name="initials"
+            id="initials"
+            required
+            autocomplete="off"
+          /><br />
+          <input type="submit" value="Submit" id="submitBtn" /><br />
+        </form>
+      </div>
     </section>
 
     <section class="hidden" id="highscoreView">
