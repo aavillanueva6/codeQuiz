@@ -6,7 +6,14 @@ This site provides the user with a quiz on coding concepts. The quiz is timed an
 
 ## Key Learnings
 
--
+- Use of Web API to dynamically display content.
+  - Adding event listeners for clicks at various elements
+  - Use of HTML forms to gather user inputs
+    - Validation on forms to ensure that only acceptable inputs are provided by the user
+  - Use of setInterval to execute functions on a predefined frequency
+- Animation creation in CSS
+  - generation of custom animations
+  - adding animations dynamically using Web API
 
 ## Deployed Site
 
