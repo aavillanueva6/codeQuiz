@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Code Quiz</title>
     <!-- links the stylesheets -->
-    <!-- <link rel="stylesheet" type="text/css" href="./assets/styles/reset.css" /> -->
+    <link rel="stylesheet" type="text/css" href="./assets/styles/reset.css" />
     <link rel="stylesheet" type="text/css" href="./assets/styles/style.css" />
     <!-- links the favicon -->
     <link
@@ -32,9 +32,9 @@
   --></head>
   <body>
     <section class="visible" id="startGameView">
-      <a id="preGameHighScoreLink">View Highscores</a>
-      <div id="preGameTimer"></div>
-      <h1>Coding Quiz Challenge</h1>
+      <a class="highscoreLink" id="preGameHighScoreLink">View Highscores</a>
+      <div class="timerDisplay" id="preGameTimer">Time: 20</div>
+      <h1 class="pageTitle">Coding Quiz Challenge</h1>
       <p>
         Try to answer the following code-related questions within the time
         limit. Keep in mind that incorrect answers will penalize your score/time
@@ -44,8 +44,8 @@
     </section>
 
     <section class="hidden" id="inGameView">
-      <a>View Highscores</a>
-      <div id="inGameTimer"></div>
+      <a class="highscoreLink">View Highscores</a>
+      <div class="timerDisplay" id="inGameTimer"></div>
       <!--This will need to be fixed.... can't have the ID set up this way. -->
       <h2 id="questionText">question Text</h2>
       <button class="ansBtn" id="ans1Btn">answer 1</button>
@@ -56,8 +56,8 @@
     </section>
 
     <section class="hidden" id="postGameView">
-      <a>View Highscores</a>
-      <div id="postGameTimer"></div>
+      <a class="highscoreLink">View Highscores</a>
+      <div class="timerDisplay" id="postGameTimer"></div>
       <!--This will need to be fixed.... can't have the ID set up this way. -->
       <h2>All done!</h2>
       <p>Your final score is...</p>
@@ -77,7 +77,7 @@
     </section>
 
     <section class="hidden" id="highscoreView">
-      <h1>Highscores</h1>
+      <h1 class="pageTitle">Highscores</h1>
       <button id="goBackBtn">Go Back</button>
       <button id="clearScoresBtn">Clear Highscores</button>
     </section>

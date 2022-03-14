@@ -271,6 +271,8 @@ submitBtn.addEventListener("click", function (event) {
         break; // exits the for loop once the newScore is added to the scoresArray.
       }
     }
+    // there has to be a cleaner way to do this
+    // the purpose of this section is to add the score to the array if the value is less than the worst score currently in the array.
     let testNumber = scoresArray[scoresArray.length - 1].score;
     if (finalScore <= testNumber) {
       scoresArray.push(newScore);
