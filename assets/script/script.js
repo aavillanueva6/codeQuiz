@@ -113,7 +113,7 @@ function resetFlash() {
  */
 function nextQuestion() {
   answerArray = []; //reinitialize variable.
-  if (i == questionList.length) {
+  if (i == questionList.length || timeLeft <= 0) {
     timeLeft = Math.max(0, timeLeft);
     clearInterval(timerInterval);
     endGame();
