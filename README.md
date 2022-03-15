@@ -33,6 +33,7 @@ https://aavillanueva6.github.io/codeQuiz/
 ## Known Bugs
 
 - Initials submission form is not validated to only accept one to three character inputs
+- something isn't working correctly with the local storage. Occasionally deletes the highscore list when it shouldn't/
 
 ## Potential future improvements
 

@@ -44,7 +44,7 @@ let timeLeft;
 let answerArray = [];
 let question;
 let timerInterval;
-let scoresArray = [];
+let scoresArray = []; // I removed the initialization here because I think it is causing problems with the local storage vs using DOM storage.
 
 // This section defines querySelectors that will be used frequently..
 const body = document.body;
@@ -159,22 +159,24 @@ function endGame() {
 }
 
 function displayHighscores() {
-  let scoreString = "<ol>";
-  let highScoreList = document.createElement("div");
-  highScoreList.setAttribute("id", "createdHighScoreList");
-  scoresArray.forEach(function (scoreLi) {
-    let initials = scoreLi.initials;
-    let score = scoreLi.score;
-    console.log(`new iniitials: ${initials}`);
-    console.log(`new score: ${score}`);
-    scoreString += `<li> ${score} --- ${initials} </li>`;
-  });
-  scoreString += "</ol>";
+  let highScoreArray = JSON.parse(localStorage.getItem("scores"));
+  if (highScoreArray !== null) {
+    let scoreString = "<ol>";
+    let highScoreList = document.createElement("div");
+    highScoreList.setAttribute("id", "createdHighScoreList");
+    highScoreArray.forEach(function (scoreLi) {
+      let initials = scoreLi.initials;
+      let score = scoreLi.score;
+      console.log(`new iniitials: ${initials}`);
+      console.log(`new score: ${score}`);
+      scoreString += `<li> ${score} --- ${initials} </li>`;
+    });
+    scoreString += "</ol>";
 
-  console.log(scoreString);
-  document.querySelector("#highscoreContainer").appendChild(highScoreList);
-  highScoreList.innerHTML = scoreString;
-
+    console.log(scoreString);
+    document.querySelector("#highscoreContainer").appendChild(highScoreList);
+    highScoreList.innerHTML = scoreString;
+  }
   // classList.remove and .add are used to change which screen is visible.
   startGameView.classList.remove("visible");
   startGameView.classList.add("hidden");
@@ -281,7 +283,7 @@ submitBtn.addEventListener("click", function (event) {
   }
   console.log(newScore);
   console.log(scoresArray);
-
+  localStorage.setItem("scores", JSON.stringify(scoresArray));
   startGameView.setAttribute("data-previous", "true");
   inGameView.setAttribute("data-previous", "false");
   postGameView.setAttribute("data-previous", "false");
@@ -319,6 +321,7 @@ goBackBtn.addEventListener("click", function () {
 // clear scores button wipes the scores out of the highscore list
 clearScoresBtn.addEventListener("click", function () {
   scoresArray = [];
+  localStorage.removeItem("scores");
   document.querySelector("#createdHighScoreList").classList.add("hidden");
 });
 
