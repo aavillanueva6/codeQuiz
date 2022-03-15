@@ -50,12 +50,13 @@ button:active,
   right: 5px;
 }
 
-/* preGame screen styling */
-#startGameView .highscoreLink {
+.highscoreLink {
   position: absolute;
   top: 0;
   left: 0;
 }
+
+/* preGame screen styling */
 
 #startGameView .pageTitle {
   margin-top: 30px;
@@ -132,6 +133,21 @@ button:active,
 }
 
 /* postGame screen styling */
+#postGameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#postGameContainer h2 {
+  font-size: 150%;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+#postGameContainer form {
+  margin-top: 20px;
+}
 
 /* highScore screen styling */
 #highscoreContainer {

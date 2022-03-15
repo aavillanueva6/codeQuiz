@@ -282,21 +282,38 @@ submitBtn.addEventListener("click", function (event) {
   console.log(newScore);
   console.log(scoresArray);
 
+  startGameView.setAttribute("data-previous", "true");
+  inGameView.setAttribute("data-previous", "false");
+  postGameView.setAttribute("data-previous", "false");
   // change to high score screen
   displayHighscores();
 });
 
 // go back button returns the user from the highscoreScreen to the startGameScreen.  it also reinitializes the timer and the for iterator.
 goBackBtn.addEventListener("click", function () {
-  timeLeft = 20;
-  inGameTimer.textContent = `Time: ${timeLeft}`;
-  // classList.remove and .add are used to change which screen is visible.
-  highscoreView.classList.remove("visible");
-  highscoreView.classList.add("hidden");
-  startGameView.classList.remove("hidden");
-  startGameView.classList.add("visible");
-  i = 0;
   document.querySelector("#createdHighScoreList").remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
+  if (startGameView.dataset.previous === "true") {
+    timeLeft = 20;
+    inGameTimer.textContent = `Time: ${timeLeft}`;
+    // classList.remove and .add are used to change which screen is visible.
+    highscoreView.classList.remove("visible");
+    highscoreView.classList.add("hidden");
+    startGameView.classList.remove("hidden");
+    startGameView.classList.add("visible");
+    i = 0;
+  } else if (inGameView.dataset.previous === "true") {
+    highscoreView.classList.remove("visible");
+    highscoreView.classList.add("hidden");
+    inGameView.classList.remove("hidden");
+    inGameView.classList.add("visible");
+  } else if (postGameView.dataset.previous === "true") {
+    highscoreView.classList.remove("visible");
+    highscoreView.classList.add("hidden");
+    postGameView.classList.remove("hidden");
+    postGameView.classList.add("visible");
+  } else {
+    console.log("error at data-previous read  / write");
+  }
 });
 
 // clear scores button wipes the scores out of the highscore list
@@ -308,5 +325,26 @@ clearScoresBtn.addEventListener("click", function () {
 body
   .querySelector("#preGameHighScoreLink")
   .addEventListener("click", function () {
+    startGameView.setAttribute("data-previous", "true");
+    inGameView.setAttribute("data-previous", "false");
+    postGameView.setAttribute("data-previous", "false");
+    displayHighscores();
+  });
+
+body
+  .querySelector("#inGameHighScoreLink")
+  .addEventListener("click", function () {
+    startGameView.setAttribute("data-previous", "false");
+    inGameView.setAttribute("data-previous", "true");
+    postGameView.setAttribute("data-previous", "false");
+    displayHighscores();
+  });
+
+body
+  .querySelector("#postGameHighScoreLink")
+  .addEventListener("click", function () {
+    startGameView.setAttribute("data-previous", "false");
+    inGameView.setAttribute("data-previous", "false");
+    postGameView.setAttribute("data-previous", "true");
     displayHighscores();
   });
