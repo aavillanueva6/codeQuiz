@@ -160,3 +160,9 @@ button:active,
   list-style: decimal;
   margin: 20px;
 }
+
+#highscoreView .pageTitle {
+  margin: 30px 0;
+  font-size: 200%;
+  font-weight: 600;
+}
