@@ -44,9 +44,14 @@ let timeLeft;
 let answerArray = [];
 let question;
 let timerInterval;
-let scoresArray = []; // I removed the initialization here because I think it is causing problems with the local storage vs using DOM storage.
+// reinitializes scoresArray on page load.  If scores exist in local storage, it pulls them in to the scoresArray, if scores don't exist in local storage, it sets to empty array.
+if (JSON.parse(localStorage.getItem("scores")) == null) {
+  var scoresArray = [];
+} else {
+  var scoresArray = JSON.parse(localStorage.getItem("scores"));
+}
 
-// This section defines querySelectors that will be used frequently..
+// This section defines querySelectors that will be used to manipulate the DOM.
 const body = document.body;
 const startGameView = body.querySelector("#startGameView");
 const inGameView = body.querySelector("#inGameView");
@@ -74,7 +79,6 @@ function startQuizTimer() {
   timerInterval = setInterval(function () {
     timeLeft--;
     inGameTimer.textContent = `Time: ${timeLeft}`; // displays the remaining time for the game
-    console.log(timeLeft);
     if (timeLeft <= 0 || i == questionList.length) {
       clearInterval(timerInterval);
       timeLeft = Math.max(0, timeLeft);
@@ -87,7 +91,6 @@ function startQuizTimer() {
  * when the correct answer is selected, the remaining questions should increment down and the next question should be displayed.
  */
 function correctAnswerClicked() {
-  console.log("correct answer");
   body.classList.add("correctAns");
   setTimeout(resetFlash, 250);
 }
@@ -118,65 +121,70 @@ function nextQuestion() {
     clearInterval(timerInterval);
     endGame();
     return;
-  } else {
-    question = questionList[i];
-    let questionAnswers = [
-      question.correct,
-      question.wrong1,
-      question.wrong2,
-      question.wrong3,
-    ];
-    for (j = 0; j < questionAnswers.length; j++) {
-      let randOrder = Math.floor(Math.random() * 2);
-      console.log(`randOrder: ${randOrder}`);
-      if (randOrder == 0) {
-        answerArray.unshift(questionAnswers[j]);
-      } else {
-        answerArray.push(questionAnswers[j]);
-      }
-    }
-    console.log(answerArray);
-    console.log(question);
-    questionText.textContent = question.question;
-    ans1Btn.textContent = answerArray[0];
-    ans2Btn.textContent = answerArray[1];
-    ans3Btn.textContent = answerArray[2];
-    ans4Btn.textContent = answerArray[3];
   }
+  question = questionList[i];
+  let questionAnswers = [
+    question.correct,
+    question.wrong1,
+    question.wrong2,
+    question.wrong3,
+  ];
+  for (j = 0; j < questionAnswers.length; j++) {
+    let randOrder = Math.floor(Math.random() * 2);
+    console.log(`randOrder: ${randOrder}`);
+    if (randOrder == 0) {
+      answerArray.unshift(questionAnswers[j]);
+    } else {
+      answerArray.push(questionAnswers[j]);
+    }
+  }
+  questionText.textContent = question.question;
+  ans1Btn.textContent = answerArray[0];
+  ans2Btn.textContent = answerArray[1];
+  ans3Btn.textContent = answerArray[2];
+  ans4Btn.textContent = answerArray[3];
 }
 
 function endGame() {
   finalScore = timeLeft; // might need to put some error handling in here, if timeLeft is negative (wrong answer clicked with less than 10 seconds left)
-  console.log(`finalScore: ${finalScore}`);
   document.querySelector("#finalScoreDisplay").textContent = finalScore;
+
+  // this handles if the user was at the highscore view when the timer runs out
+  // need to add a data-attr for if highscore list is visible. and only execute next few lines if that is true.
+  if (highscoreView.dataset.visible === "true") {
+    document.querySelector("#createdHighScoreList").remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
+    highscoreView.classList.remove("visible");
+    highscoreView.classList.add("hidden");
+    highscoreView.dataset.visible = "false";
+  }
+
   // classList.remove and .add are used to change which screen is visible.
   inGameView.classList.remove("visible");
   inGameView.classList.add("hidden");
   postGameView.classList.remove("hidden");
   postGameView.classList.add("visible");
-  console.log("game ended");
   document.querySelector("#initials").value = "";
 }
 
 function displayHighscores() {
   let highScoreArray = JSON.parse(localStorage.getItem("scores"));
+  let highScoreList = document.createElement("div");
+  highScoreList.setAttribute("id", "createdHighScoreList");
+
+  // this block creates the scoreString.  This is a set of html elements and values that will create the ol to display the high score.
   if (highScoreArray !== null) {
     let scoreString = "<ol>";
-    let highScoreList = document.createElement("div");
-    highScoreList.setAttribute("id", "createdHighScoreList");
     highScoreArray.forEach(function (scoreLi) {
       let initials = scoreLi.initials;
       let score = scoreLi.score;
-      console.log(`new iniitials: ${initials}`);
-      console.log(`new score: ${score}`);
       scoreString += `<li> ${score} --- ${initials} </li>`;
     });
     scoreString += "</ol>";
-
-    console.log(scoreString);
     document.querySelector("#highscoreContainer").appendChild(highScoreList);
     highScoreList.innerHTML = scoreString;
   }
+  document.querySelector("#highscoreContainer").appendChild(highScoreList);
+
   // classList.remove and .add are used to change which screen is visible.
   startGameView.classList.remove("visible");
   startGameView.classList.add("hidden");
@@ -263,6 +271,10 @@ submitBtn.addEventListener("click", function (event) {
     score: finalScore,
   }; // object storing initials and final score on each attempt
   // this adds newScore to the scoresArray if it is the first time a score is logged
+  // if (localStorage.getItem("scores") === null) {
+  //   scoresArray = [];
+  // }
+  console.log(scoresArray);
   if (scoresArray.length === 0) {
     scoresArray.push(newScore);
   } else {
@@ -294,6 +306,7 @@ submitBtn.addEventListener("click", function (event) {
 // go back button returns the user from the highscoreScreen to the startGameScreen.  it also reinitializes the timer and the for iterator.
 goBackBtn.addEventListener("click", function () {
   document.querySelector("#createdHighScoreList").remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
+  highscoreView.dataset.visible = "false";
   if (startGameView.dataset.previous === "true") {
     timeLeft = 20;
     inGameTimer.textContent = `Time: ${timeLeft}`;
@@ -321,7 +334,7 @@ goBackBtn.addEventListener("click", function () {
 // clear scores button wipes the scores out of the highscore list
 clearScoresBtn.addEventListener("click", function () {
   scoresArray = [];
-  localStorage.removeItem("scores");
+  localStorage.setItem("scores", null);
   document.querySelector("#createdHighScoreList").classList.add("hidden");
 });
 
@@ -331,6 +344,7 @@ body
     startGameView.setAttribute("data-previous", "true");
     inGameView.setAttribute("data-previous", "false");
     postGameView.setAttribute("data-previous", "false");
+    highscoreView.setAttribute("data-visible", "true");
     displayHighscores();
   });
 
@@ -340,6 +354,7 @@ body
     startGameView.setAttribute("data-previous", "false");
     inGameView.setAttribute("data-previous", "true");
     postGameView.setAttribute("data-previous", "false");
+    highscoreView.setAttribute("data-visible", "true");
     displayHighscores();
   });
 
@@ -349,5 +364,6 @@ body
     startGameView.setAttribute("data-previous", "false");
     inGameView.setAttribute("data-previous", "false");
     postGameView.setAttribute("data-previous", "true");
+    highscoreView.setAttribute("data-visible", "true");
     displayHighscores();
   });
