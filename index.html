@@ -64,7 +64,7 @@
       <div class="timerDisplay" id="postGameTimer"></div>
       <div id="postGameContainer">
         <h2>All done!</h2>
-        <p>Your final score is...</p>
+        <p>Your final score is... <span id="finalScoreDisplay"></span></p>
         <form>
           <label for="initials">Enter Your Initials:</label><br />
           <input
@@ -80,9 +80,13 @@
     </section>
 
     <section class="hidden" id="highscoreView">
-      <h1 class="pageTitle">Highscores</h1>
-      <button id="goBackBtn">Go Back</button>
-      <button id="clearScoresBtn">Clear Highscores</button>
+      <div id="highscoreContainer">
+        <h1 class="pageTitle">Highscores</h1>
+        <div id="highscoreBtnContainer">
+          <button id="goBackBtn">Go Back</button>
+          <button id="clearScoresBtn">Clear Highscores</button>
+        </div>
+      </div>
     </section>
 
     <!-- calls in the javascript file -->

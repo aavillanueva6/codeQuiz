@@ -35,7 +35,7 @@ const Q5 = {
   correct: "Q5Correct",
   wrong1: "Q5Wrong1",
   wrong2: "Q5Wrong2",
-  wrong3: "Q5Wrong13",
+  wrong3: "Q5Wrong3",
 };
 const questionList = [Q1, Q2, Q3, Q4, Q5];
 let i = 0;
@@ -148,7 +148,7 @@ function nextQuestion() {
 function endGame() {
   finalScore = timeLeft; // might need to put some error handling in here, if timeLeft is negative (wrong answer clicked with less than 10 seconds left)
   console.log(`finalScore: ${finalScore}`);
-
+  document.querySelector("#finalScoreDisplay").textContent = finalScore;
   // classList.remove and .add are used to change which screen is visible.
   inGameView.classList.remove("visible");
   inGameView.classList.add("hidden");
@@ -172,7 +172,7 @@ function displayHighscores() {
   scoreString += "</ol>";
 
   console.log(scoreString);
-  document.querySelector("#highscoreView").appendChild(highScoreList);
+  document.querySelector("#highscoreContainer").appendChild(highScoreList);
   highScoreList.innerHTML = scoreString;
 
   // classList.remove and .add are used to change which screen is visible.

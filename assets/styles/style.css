@@ -35,6 +35,7 @@ button,
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   border-radius: 5px;
+  margin: 3px;
 }
 
 button:active,
@@ -43,17 +44,17 @@ button:active,
   background-color: var(--lightGold);
 }
 
+.timerDisplay {
+  position: absolute;
+  top: 0;
+  right: 5px;
+}
+
 /* preGame screen styling */
 #startGameView .highscoreLink {
   position: absolute;
   top: 0;
   left: 0;
-}
-
-#startGameView .timerDisplay {
-  position: absolute;
-  top: 0;
-  right: 5px;
 }
 
 #startGameView .pageTitle {
@@ -83,6 +84,8 @@ button:active,
 
 #inGameContainer h2 {
   font-size: 150%;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .correctAns {
@@ -131,6 +134,12 @@ button:active,
 /* postGame screen styling */
 
 /* highScore screen styling */
+#highscoreContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #highscoreView ol {
   list-style: decimal;
   margin: 20px;
