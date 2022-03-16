@@ -276,10 +276,8 @@ submitBtn.addEventListener("click", function (event) {
     initials: newScoreInitials,
     score: finalScore,
   }; // object storing initials and final score on each attempt
+
   // this adds newScore to the scoresArray if it is the first time a score is logged
-  // if (localStorage.getItem("scores") === null) {
-  //   scoresArray = [];
-  // }
   console.log(scoresArray);
   if (scoresArray.length === 0) {
     scoresArray.push(newScore);
