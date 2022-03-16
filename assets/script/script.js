@@ -263,6 +263,12 @@ submitBtn.addEventListener("click", function (event) {
   // update high score list
   event.preventDefault(); // this prevents the form default action.
   let newScoreInitials = document.querySelector("#initials").value;
+  if (newScoreInitials.length < 1 || newScoreInitials.length > 3) {
+    document.querySelector("#errorMsg").setAttribute("class", "visible");
+    return;
+  }
+  document.querySelector("#errorMsg").setAttribute("class", "hidden");
+
   newScoreInitials = newScoreInitials.toUpperCase();
   console.log(newScoreInitials);
 

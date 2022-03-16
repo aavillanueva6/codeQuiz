@@ -31,63 +31,73 @@
       manifest "site.manifest" modified from version provided by https://favicon.io/favicon-generator/ 
   --></head>
   <body>
-    <section class="visible" id="startGameView">
-      <a class="highscoreLink" id="preGameHighScoreLink">View Highscores</a>
-      <div class="timerDisplay" id="preGameTimer">Time: 20</div>
-      <div id="preGameContainer">
-        <h1 class="pageTitle">Coding Quiz Challenge</h1>
-        <p>
-          Try to answer the following code-related questions within the time
-          limit. Keep in mind that incorrect answers will penalize your
-          score/time by ten seconds!
-        </p>
-        <button id="startGameBtn">Start Quiz</button>
-      </div>
-    </section>
+    <div id="pageContainer">
+      <div id="contentWrapper">
+        <section class="visible" id="startGameView">
+          <a class="highscoreLink" id="preGameHighScoreLink">View Highscores</a>
+          <div class="timerDisplay" id="preGameTimer">Time: 20</div>
+          <div id="preGameContainer">
+            <h1 class="pageTitle">Coding Quiz Challenge</h1>
+            <p>
+              Try to answer the following code-related questions within the time
+              limit. Keep in mind that incorrect answers will penalize your
+              score/time by ten seconds!
+            </p>
+            <button id="startGameBtn">Start Quiz</button>
+          </div>
+        </section>
 
-    <section class="hidden" id="inGameView">
-      <a class="highscoreLink" id="inGameHighScoreLink">View Highscores</a>
-      <div class="timerDisplay" id="inGameTimer"></div>
-      <div id="inGameContainer">
-        <h2 id="questionText">question Text</h2>
-        <button class="ansBtn" id="ans1Btn">answer 1</button>
-        <button class="ansBtn" id="ans2Btn">answer 2</button>
-        <button class="ansBtn" id="ans3Btn">answer 3</button>
-        <button class="ansBtn" id="ans4Btn">answer 4</button>
-        <!-- <p id="resultText">result text</p> -->
-        <!-- I think I can get rid of the p above.  instead of popping up text, I changed to a green or red flash for correct / incorrect -->
-      </div>
-    </section>
+        <section class="hidden" id="inGameView">
+          <a class="highscoreLink" id="inGameHighScoreLink">View Highscores</a>
+          <div class="timerDisplay" id="inGameTimer"></div>
+          <div id="inGameContainer">
+            <h2 id="questionText">question Text</h2>
+            <button class="ansBtn" id="ans1Btn">answer 1</button>
+            <button class="ansBtn" id="ans2Btn">answer 2</button>
+            <button class="ansBtn" id="ans3Btn">answer 3</button>
+            <button class="ansBtn" id="ans4Btn">answer 4</button>
+            <!-- <p id="resultText">result text</p> -->
+            <!-- I think I can get rid of the p above.  instead of popping up text, I changed to a green or red flash for correct / incorrect -->
+          </div>
+        </section>
 
-    <section class="hidden" id="postGameView">
-      <a class="highscoreLink" id="postGameHighScoreLink">View Highscores</a>
-      <div id="postGameContainer">
-        <h2>All done!</h2>
-        <p>Your final score is... <span id="finalScoreDisplay"></span></p>
-        <form>
-          <label for="initials">Enter Your Initials:</label><br />
-          <input
-            type="text"
-            name="initials"
-            id="initials"
-            required
-            autocomplete="off"
-          /><br />
-          <input type="submit" value="Submit" id="submitBtn" /><br />
-        </form>
-      </div>
-    </section>
+        <section class="hidden" id="postGameView">
+          <a class="highscoreLink" id="postGameHighScoreLink"
+            >View Highscores</a
+          >
+          <div id="postGameContainer">
+            <h2>All done!</h2>
+            <p>Your final score is... <span id="finalScoreDisplay"></span></p>
+            <form>
+              <label for="initials">Enter Your Initials:</label><br />
+              <input
+                type="text"
+                name="initials"
+                id="initials"
+                required
+                autocomplete="off"
+              /><br />
+              <input type="submit" value="Submit" id="submitBtn" /><br />
+            </form>
+            <p class="hidden" id="errorMsg">
+              Initials must be between 1 and 3 characters in length
+            </p>
+          </div>
+        </section>
 
-    <section class="hidden" id="highscoreView">
-      <div id="highscoreContainer">
-        <h1 class="pageTitle">Highscores</h1>
-        <div id="highscoreBtnContainer">
-          <button id="goBackBtn">Go Back</button>
-          <button id="clearScoresBtn">Clear Highscores</button>
-        </div>
+        <section class="hidden" id="highscoreView">
+          <div id="highscoreContainer">
+            <h1 class="pageTitle">Highscores</h1>
+            <div id="highscoreBtnContainer">
+              <button id="goBackBtn">Go Back</button>
+              <button id="clearScoresBtn">Clear Highscores</button>
+            </div>
+          </div>
+        </section>
       </div>
-    </section>
-    <footer>&copy; Alejandro Villanueva 2022</footer>
+      <footer>&copy; Alejandro Villanueva 2022</footer>
+    </div>
+
     <!-- calls in the javascript file -->
     <script src="./assets/script/script.js"></script>
   </body>
