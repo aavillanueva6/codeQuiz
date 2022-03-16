@@ -293,6 +293,11 @@ submitBtn.addEventListener("click", function (event) {
       scoresArray.push(newScore);
     }
   }
+  // this if statement is used to limit the high scores to only the top ten
+  if (scoresArray.length > 10) {
+    scoresArray.pop();
+  }
+
   console.log(newScore);
   console.log(scoresArray);
   localStorage.setItem("scores", JSON.stringify(scoresArray));

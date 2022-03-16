@@ -14,6 +14,8 @@ This site provides the user with a quiz on coding concepts. The quiz is timed an
 - Animation creation in CSS
   - generation of custom animations
   - adding animations dynamically using Web API
+- Use of local storage for tracking data across page refreshes
+  - high score list is an array. It is stored in and retrieved from localStorage using JSON.
 
 ## Deployed Site
 
@@ -33,8 +35,5 @@ https://aavillanueva6.github.io/codeQuiz/
 ## Known Bugs
 
 - Initials submission form is not validated to only accept one to three character inputs
-- something isn't working correctly with the local storage. Occasionally deletes the highscore list when it shouldn't/
 
 ## Potential future improvements
-
-- change storage of high scores from session to local
