@@ -3,39 +3,41 @@ console.log("code quiz");
 // This section defines global variables for the application.
 
 const Q1 = {
-  question: "This is the Question 1 text",
-  correct: "Q1Correct",
-  wrong1: "Q1Wrong1",
-  wrong2: "Q1Wrong2",
-  wrong3: "Q1Wrong3",
+  question: "What is JavaScript?",
+  correct: "A client-side and server-side scripting language",
+  wrong1: "A new version of Java",
+  wrong2: "A font that is popular on websites",
+  wrong3: "None of the other answers are correct",
 };
 const Q2 = {
-  question: "This is the Question 2 text",
-  correct: "Q2Correct",
-  wrong1: "Q2Wrong1",
-  wrong2: "Q2Wrong2",
-  wrong3: "Q2Wrong3",
+  question: "Which of the following is not a JavaScript Data type?",
+  correct: "Integer",
+  wrong1: "Number",
+  wrong2: "String",
+  wrong3: "Object",
 };
 const Q3 = {
-  question: "This is the Question 3 text",
-  correct: "Q3Correct",
-  wrong1: "Q3Wrong1",
-  wrong2: "Q3Wrong2",
-  wrong3: "Q3Wrong3",
+  question:
+    "Which of the following is an acceptable way to insert a comment in JavaScript?",
+  correct: "// comment goes here",
+  wrong1: "# comment goes here",
+  wrong2: "<!-- comment goes here -->",
+  wrong3: "% comment goes here",
 };
 const Q4 = {
-  question: "This is the Question 4 text",
-  correct: "Q4Correct",
-  wrong1: "Q4Wrong1",
-  wrong2: "Q4Wrong2",
-  wrong3: "Q4Wrong3",
+  question: "How is data stored / organized in a JavaScript Object?",
+  correct: "In key-value pairs",
+  wrong1: "There is no set structure",
+  wrong2: "In name / parameter values",
+  wrong3: "As an array",
 };
 const Q5 = {
-  question: "This is the Question 5 text",
-  correct: "Q5Correct",
-  wrong1: "Q5Wrong1",
-  wrong2: "Q5Wrong2",
-  wrong3: "Q5Wrong3",
+  question:
+    "Which of the following array methods removes the last item in the array",
+  correct: "array.pop()",
+  wrong1: "array.shift()",
+  wrong2: "array.push()",
+  wrong3: "array.lastIndexOf",
 };
 const questionList = [Q1, Q2, Q3, Q4, Q5];
 let i = 0;
@@ -74,7 +76,7 @@ const clearScoresBtn = document.querySelector("#clearScoresBtn");
  * startQuizTimer starts a countdown that is used to end the quiz if the user takes too long, and to log a score after the quiz is completed.
  */
 function startQuizTimer() {
-  timeLeft = 20; // time in seconds left for the quiz change to 75 when ready to deploy
+  timeLeft = 50; // time in seconds left for the quiz change to 75 when ready to deploy
   inGameTimer.textContent = `Time: ${timeLeft}`; // displays the initial time for the game
   timerInterval = setInterval(function () {
     timeLeft--;
@@ -175,9 +177,10 @@ function displayHighscores() {
   if (highScoreArray !== null) {
     let scoreString = "<ol>";
     highScoreArray.forEach(function (scoreLi) {
+      let position = highScoreArray.indexOf(scoreLi) + 1;
       let initials = scoreLi.initials;
       let score = scoreLi.score;
-      scoreString += `<li> ${score} --- ${initials} </li>`;
+      scoreString += `<li>${position}.   ${score} --- ${initials} </li>`;
     });
     scoreString += "</ol>";
     document.querySelector("#highscoreContainer").appendChild(highScoreList);
@@ -317,7 +320,7 @@ goBackBtn.addEventListener("click", function () {
   document.querySelector("#createdHighScoreList").remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
   highscoreView.dataset.visible = "false";
   if (startGameView.dataset.previous === "true") {
-    timeLeft = 20;
+    timeLeft = 50;
     inGameTimer.textContent = `Time: ${timeLeft}`;
     // classList.remove and .add are used to change which screen is visible.
     highscoreView.classList.remove("visible");
