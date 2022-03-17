@@ -118,7 +118,6 @@ function correctAnswerClicked() {
  * when a wrong answer is selected, ten seconds are removed from the remaining time, and the screen flashes red.  The resetFlash function is then called after a 250ms delay to reset the flash animation.
  */
 function wrongAnswerClicked() {
-  console.log('wrong answer');
   timeLeft -= 10;
   timeLeft = Math.max(0, timeLeft);
   body.classList.add('wrongAns');
@@ -158,7 +157,6 @@ function nextQuestion() {
   ];
   for (j = 0; j < questionAnswers.length; j++) {
     let randOrder = Math.floor(Math.random() * 2);
-    console.log(`randOrder: ${randOrder}`);
     if (randOrder == 0) {
       answerArray.unshift(questionAnswers[j]);
     } else {
@@ -245,7 +243,6 @@ startBtn.addEventListener('click', function () {
 // answer buttons submit the users response to be checked for correct / incorrect, and run the appropriate function based on that result
 ans1Btn.addEventListener('click', function () {
   i++;
-  console.log('answer 1 picked');
   if (answerArray[0] !== question.correct) {
     wrongAnswerClicked();
   } else {
@@ -256,7 +253,6 @@ ans1Btn.addEventListener('click', function () {
 
 ans2Btn.addEventListener('click', function () {
   i++;
-  console.log('answer 2 picked');
   if (answerArray[1] !== question.correct) {
     wrongAnswerClicked();
   } else {
@@ -267,7 +263,6 @@ ans2Btn.addEventListener('click', function () {
 
 ans3Btn.addEventListener('click', function () {
   i++;
-  console.log('answer 3 picked');
   if (answerArray[2] !== question.correct) {
     wrongAnswerClicked();
   } else {
@@ -278,7 +273,6 @@ ans3Btn.addEventListener('click', function () {
 
 ans4Btn.addEventListener('click', function () {
   i++;
-  console.log('answer 4 picked');
   if (answerArray[3] !== question.correct) {
     wrongAnswerClicked();
   } else {
@@ -300,7 +294,6 @@ submitBtn.addEventListener('click', function (event) {
   }
   document.querySelector('#errorMsg').setAttribute('class', 'hidden');
   newScoreInitials = newScoreInitials.toUpperCase();
-  console.log(newScoreInitials);
 
   // this creates a newScore object with key/value pairs for initials and score
   let newScore = {
@@ -310,14 +303,12 @@ submitBtn.addEventListener('click', function (event) {
 
   // this section adds the newScore into the score array, it has functionality built into it to add the new score at the appropriate place in the list to order from highest to lowest score.  If the list exceeds ten items, it removes the last score, to only display the top ten scores.
   // this adds newScore to the scoresArray if it is the first time a score is logged
-  console.log(scoresArray);
   if (scoresArray.length === 0) {
     scoresArray.push(newScore);
   } else {
     // this else identifies where the newest score needs to be added to the array to have the scores in descending order.  Splices newScore into scoresArray at appropriate index
     for (let i = 0; i < scoresArray.length; i++) {
       if (finalScore > scoresArray[i].score) {
-        console.log(i);
         scoresArray.splice(i, 0, newScore);
         break; // exits the for loop once the newScore is added to the scoresArray.
       }
