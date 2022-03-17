@@ -1,43 +1,43 @@
-console.log("code quiz");
+console.log('code quiz');
 
 // This section defines global variables for the application.
 
 const Q1 = {
-  question: "What is JavaScript?",
-  correct: "A client-side and server-side scripting language",
-  wrong1: "A new version of Java",
-  wrong2: "A font that is popular on websites",
-  wrong3: "None of the other answers are correct",
+  question: 'What is JavaScript?',
+  correct: 'A client-side and server-side scripting language',
+  wrong1: 'A new version of Java',
+  wrong2: 'A font that is popular on websites',
+  wrong3: 'None of the other answers are correct',
 };
 const Q2 = {
-  question: "Which of the following is not a JavaScript Data type?",
-  correct: "Integer",
-  wrong1: "Number",
-  wrong2: "String",
-  wrong3: "Object",
+  question: 'Which of the following is not a JavaScript Data type?',
+  correct: 'Integer',
+  wrong1: 'Number',
+  wrong2: 'String',
+  wrong3: 'Object',
 };
 const Q3 = {
   question:
-    "Which of the following is an acceptable way to insert a comment in JavaScript?",
-  correct: "// comment goes here",
-  wrong1: "# comment goes here",
-  wrong2: "<!-- comment goes here -->",
-  wrong3: "% comment goes here",
+    'Which of the following is an acceptable way to insert a comment in JavaScript?',
+  correct: '// comment goes here',
+  wrong1: '# comment goes here',
+  wrong2: '<!-- comment goes here -->',
+  wrong3: '% comment goes here',
 };
 const Q4 = {
-  question: "How is data stored / organized in a JavaScript Object?",
-  correct: "In key-value pairs",
-  wrong1: "There is no set structure",
-  wrong2: "In name / parameter values",
-  wrong3: "As an array",
+  question: 'How is data stored / organized in a JavaScript Object?',
+  correct: 'In key-value pairs',
+  wrong1: 'There is no set structure',
+  wrong2: 'In name / parameter values',
+  wrong3: 'As an array',
 };
 const Q5 = {
   question:
-    "Which of the following array methods removes the last item in the array",
-  correct: "array.pop()",
-  wrong1: "array.shift()",
-  wrong2: "array.push()",
-  wrong3: "array.lastIndexOf",
+    'Which of the following array methods removes the last item in the array',
+  correct: 'array.pop()',
+  wrong1: 'array.shift()',
+  wrong2: 'array.push()',
+  wrong3: 'array.lastIndexOf',
 };
 const questionList = [Q1, Q2, Q3, Q4, Q5];
 let i = 0;
@@ -47,36 +47,46 @@ let answerArray = [];
 let question;
 let timerInterval;
 // reinitializes scoresArray on page load.  If scores exist in local storage, it pulls them in to the scoresArray, if scores don't exist in local storage, it sets to empty array.
-if (JSON.parse(localStorage.getItem("scores")) == null) {
+if (JSON.parse(localStorage.getItem('scores')) == null) {
   var scoresArray = [];
 } else {
-  var scoresArray = JSON.parse(localStorage.getItem("scores"));
+  var scoresArray = JSON.parse(localStorage.getItem('scores'));
 }
 
 // This section defines querySelectors that will be used to manipulate the DOM.
 const body = document.body;
-const startGameView = body.querySelector("#startGameView");
-const inGameView = body.querySelector("#inGameView");
-const postGameView = body.querySelector("#postGameView");
-const highscoreView = body.querySelector("#highscoreView");
-const questionText = body.querySelector("#questionText");
+const startGameView = body.querySelector('#startGameView');
+const inGameView = body.querySelector('#inGameView');
+const postGameView = body.querySelector('#postGameView');
+const highscoreView = body.querySelector('#highscoreView');
+const questionText = body.querySelector('#questionText');
 
 // variables used for button click listeners
-const startBtn = document.querySelector("#startGameBtn");
-const ans1Btn = document.querySelector("#ans1Btn");
-const ans2Btn = document.querySelector("#ans2Btn");
-const ans3Btn = document.querySelector("#ans3Btn");
-const ans4Btn = document.querySelector("#ans4Btn");
-const submitBtn = document.querySelector("#submitBtn");
-const goBackBtn = document.querySelector("#goBackBtn");
-const clearScoresBtn = document.querySelector("#clearScoresBtn");
+const startBtn = document.querySelector('#startGameBtn');
+const ans1Btn = document.querySelector('#ans1Btn');
+const ans2Btn = document.querySelector('#ans2Btn');
+const ans3Btn = document.querySelector('#ans3Btn');
+const ans4Btn = document.querySelector('#ans4Btn');
+const submitBtn = document.querySelector('#submitBtn');
+const goBackBtn = document.querySelector('#goBackBtn');
+const clearScoresBtn = document.querySelector('#clearScoresBtn');
 
 // This section defines functions that will be used to execute the quiz.
+
+function initTimer() {
+  timeLeft = 50;
+}
+
+function initGame() {
+  initTimer();
+  preGameTimer.textContent = `Time: ${timeLeft}`; // displays the initial time for the game
+}
+
 /**
  * startQuizTimer starts a countdown that is used to end the quiz if the user takes too long, and to log a score after the quiz is completed.
  */
 function startQuizTimer() {
-  timeLeft = 50; // time in seconds left for the quiz change to 75 when ready to deploy
+  initTimer();
   inGameTimer.textContent = `Time: ${timeLeft}`; // displays the initial time for the game
   timerInterval = setInterval(function () {
     timeLeft--;
@@ -93,7 +103,7 @@ function startQuizTimer() {
  * when the correct answer is selected, the remaining questions should increment down and the next question should be displayed.
  */
 function correctAnswerClicked() {
-  body.classList.add("correctAns");
+  body.classList.add('correctAns');
   setTimeout(resetFlash, 250);
 }
 
@@ -101,16 +111,16 @@ function correctAnswerClicked() {
  * when a wrong answer is selected, five seconds should be removed from the remaining time, the remaining questions should increment down and the next question should be displayed.
  */
 function wrongAnswerClicked() {
-  console.log("wrong answer");
+  console.log('wrong answer');
   timeLeft -= 10;
   timeLeft = Math.max(0, timeLeft);
-  body.classList.add("wrongAns");
+  body.classList.add('wrongAns');
   setTimeout(resetFlash, 250);
 }
 
 function resetFlash() {
-  body.classList.remove("correctAns");
-  body.classList.remove("wrongAns");
+  body.classList.remove('correctAns');
+  body.classList.remove('wrongAns');
 }
 
 /**
@@ -149,67 +159,67 @@ function nextQuestion() {
 
 function endGame() {
   finalScore = timeLeft; // might need to put some error handling in here, if timeLeft is negative (wrong answer clicked with less than 10 seconds left)
-  document.querySelector("#finalScoreDisplay").textContent = finalScore;
+  document.querySelector('#finalScoreDisplay').textContent = finalScore;
 
   // this handles if the user was at the highscore view when the timer runs out
   // need to add a data-attr for if highscore list is visible. and only execute next few lines if that is true.
-  if (highscoreView.dataset.visible === "true") {
-    document.querySelector("#createdHighScoreList").remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
-    highscoreView.classList.remove("visible");
-    highscoreView.classList.add("hidden");
-    highscoreView.dataset.visible = "false";
+  if (highscoreView.dataset.visible === 'true') {
+    document.querySelector('#createdHighScoreList').remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
+    highscoreView.classList.remove('visible');
+    highscoreView.classList.add('hidden');
+    highscoreView.dataset.visible = 'false';
   }
 
   // classList.remove and .add are used to change which screen is visible.
-  inGameView.classList.remove("visible");
-  inGameView.classList.add("hidden");
-  postGameView.classList.remove("hidden");
-  postGameView.classList.add("visible");
-  document.querySelector("#initials").value = "";
+  inGameView.classList.remove('visible');
+  inGameView.classList.add('hidden');
+  postGameView.classList.remove('hidden');
+  postGameView.classList.add('visible');
+  document.querySelector('#initials').value = '';
 }
 
 function displayHighscores() {
-  let highScoreArray = JSON.parse(localStorage.getItem("scores"));
-  let highScoreList = document.createElement("div");
-  highScoreList.setAttribute("id", "createdHighScoreList");
+  let highScoreArray = JSON.parse(localStorage.getItem('scores'));
+  let highScoreList = document.createElement('div');
+  highScoreList.setAttribute('id', 'createdHighScoreList');
 
   // this block creates the scoreString.  This is a set of html elements and values that will create the ol to display the high score.
   if (highScoreArray !== null) {
-    let scoreString = "<ol>";
+    let scoreString = '<ol>';
     highScoreArray.forEach(function (scoreLi) {
       let position = highScoreArray.indexOf(scoreLi) + 1;
       let initials = scoreLi.initials;
       let score = scoreLi.score;
       scoreString += `<li>${position}.   ${score} --- ${initials} </li>`;
     });
-    scoreString += "</ol>";
-    document.querySelector("#highscoreContainer").appendChild(highScoreList);
+    scoreString += '</ol>';
+    document.querySelector('#highscoreContainer').appendChild(highScoreList);
     highScoreList.innerHTML = scoreString;
   }
-  document.querySelector("#highscoreContainer").appendChild(highScoreList);
+  document.querySelector('#highscoreContainer').appendChild(highScoreList);
 
   // classList.remove and .add are used to change which screen is visible.
-  startGameView.classList.remove("visible");
-  startGameView.classList.add("hidden");
-  inGameView.classList.remove("visible");
-  inGameView.classList.add("hidden");
-  postGameView.classList.remove("visible");
-  postGameView.classList.add("hidden");
-  highscoreView.classList.remove("hidden");
-  highscoreView.classList.add("visible");
+  startGameView.classList.remove('visible');
+  startGameView.classList.add('hidden');
+  inGameView.classList.remove('visible');
+  inGameView.classList.add('hidden');
+  postGameView.classList.remove('visible');
+  postGameView.classList.add('hidden');
+  highscoreView.classList.remove('hidden');
+  highscoreView.classList.add('visible');
 }
 
 // button listeners
 // start button begins the game.  It starts the game timer, hides the startGameScreen, and enables the inGameScreen
-startBtn.addEventListener("click", function () {
-  console.log("start button clicked");
+startBtn.addEventListener('click', function () {
+  console.log('start button clicked');
   startQuizTimer();
-  console.log("after timer call");
+  console.log('after timer call');
   // classList.remove and .add are used to change which screen is visible.
-  startGameView.classList.remove("visible");
-  startGameView.classList.add("hidden");
-  inGameView.classList.remove("hidden");
-  inGameView.classList.add("visible");
+  startGameView.classList.remove('visible');
+  startGameView.classList.add('hidden');
+  inGameView.classList.remove('hidden');
+  inGameView.classList.add('visible');
   nextQuestion();
 
   // clearFrontScreen();
@@ -217,9 +227,9 @@ startBtn.addEventListener("click", function () {
 });
 
 // answer buttons submit the users response to be checked for correct / incorrect, and run the appropriate function based on that result
-ans1Btn.addEventListener("click", function () {
+ans1Btn.addEventListener('click', function () {
   i++;
-  console.log("answer 1 picked");
+  console.log('answer 1 picked');
   if (answerArray[0] !== question.correct) {
     wrongAnswerClicked();
   } else {
@@ -228,9 +238,9 @@ ans1Btn.addEventListener("click", function () {
   nextQuestion();
 });
 
-ans2Btn.addEventListener("click", function () {
+ans2Btn.addEventListener('click', function () {
   i++;
-  console.log("answer 2 picked");
+  console.log('answer 2 picked');
   if (answerArray[1] !== question.correct) {
     wrongAnswerClicked();
   } else {
@@ -239,9 +249,9 @@ ans2Btn.addEventListener("click", function () {
   nextQuestion();
 });
 
-ans3Btn.addEventListener("click", function () {
+ans3Btn.addEventListener('click', function () {
   i++;
-  console.log("answer 3 picked");
+  console.log('answer 3 picked');
   if (answerArray[2] !== question.correct) {
     wrongAnswerClicked();
   } else {
@@ -250,9 +260,9 @@ ans3Btn.addEventListener("click", function () {
   nextQuestion();
 });
 
-ans4Btn.addEventListener("click", function () {
+ans4Btn.addEventListener('click', function () {
   i++;
-  console.log("answer 4 picked");
+  console.log('answer 4 picked');
   if (answerArray[3] !== question.correct) {
     wrongAnswerClicked();
   } else {
@@ -262,15 +272,15 @@ ans4Btn.addEventListener("click", function () {
 });
 
 // submit button submits the users initials to the high score list.  It hides the postGameScreen, and enables the highscoreScreen
-submitBtn.addEventListener("click", function (event) {
+submitBtn.addEventListener('click', function (event) {
   // update high score list
   event.preventDefault(); // this prevents the form default action.
-  let newScoreInitials = document.querySelector("#initials").value;
+  let newScoreInitials = document.querySelector('#initials').value;
   if (newScoreInitials.length < 1 || newScoreInitials.length > 3) {
-    document.querySelector("#errorMsg").setAttribute("class", "visible");
+    document.querySelector('#errorMsg').setAttribute('class', 'visible');
     return;
   }
-  document.querySelector("#errorMsg").setAttribute("class", "hidden");
+  document.querySelector('#errorMsg').setAttribute('class', 'hidden');
 
   newScoreInitials = newScoreInitials.toUpperCase();
   console.log(newScoreInitials);
@@ -307,75 +317,77 @@ submitBtn.addEventListener("click", function (event) {
 
   console.log(newScore);
   console.log(scoresArray);
-  localStorage.setItem("scores", JSON.stringify(scoresArray));
-  startGameView.setAttribute("data-previous", "true");
-  inGameView.setAttribute("data-previous", "false");
-  postGameView.setAttribute("data-previous", "false");
+  localStorage.setItem('scores', JSON.stringify(scoresArray));
+  startGameView.setAttribute('data-previous', 'true');
+  inGameView.setAttribute('data-previous', 'false');
+  postGameView.setAttribute('data-previous', 'false');
   // change to high score screen
   displayHighscores();
 });
 
 // go back button returns the user from the highscoreScreen to the startGameScreen.  it also reinitializes the timer and the for iterator.
-goBackBtn.addEventListener("click", function () {
-  document.querySelector("#createdHighScoreList").remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
-  highscoreView.dataset.visible = "false";
-  if (startGameView.dataset.previous === "true") {
-    timeLeft = 50;
+goBackBtn.addEventListener('click', function () {
+  document.querySelector('#createdHighScoreList').remove(); // removes the score list from the DOM when the highscore screen is left.  This is required to prevent multiple score lists from being displayed.
+  highscoreView.dataset.visible = 'false';
+  if (startGameView.dataset.previous === 'true') {
+    initTimer();
     inGameTimer.textContent = `Time: ${timeLeft}`;
     // classList.remove and .add are used to change which screen is visible.
-    highscoreView.classList.remove("visible");
-    highscoreView.classList.add("hidden");
-    startGameView.classList.remove("hidden");
-    startGameView.classList.add("visible");
+    highscoreView.classList.remove('visible');
+    highscoreView.classList.add('hidden');
+    startGameView.classList.remove('hidden');
+    startGameView.classList.add('visible');
     i = 0;
-  } else if (inGameView.dataset.previous === "true") {
-    highscoreView.classList.remove("visible");
-    highscoreView.classList.add("hidden");
-    inGameView.classList.remove("hidden");
-    inGameView.classList.add("visible");
-  } else if (postGameView.dataset.previous === "true") {
-    highscoreView.classList.remove("visible");
-    highscoreView.classList.add("hidden");
-    postGameView.classList.remove("hidden");
-    postGameView.classList.add("visible");
+  } else if (inGameView.dataset.previous === 'true') {
+    highscoreView.classList.remove('visible');
+    highscoreView.classList.add('hidden');
+    inGameView.classList.remove('hidden');
+    inGameView.classList.add('visible');
+  } else if (postGameView.dataset.previous === 'true') {
+    highscoreView.classList.remove('visible');
+    highscoreView.classList.add('hidden');
+    postGameView.classList.remove('hidden');
+    postGameView.classList.add('visible');
   } else {
-    console.log("error at data-previous read  / write");
+    console.log('error at data-previous read  / write');
   }
 });
 
 // clear scores button wipes the scores out of the highscore list
-clearScoresBtn.addEventListener("click", function () {
+clearScoresBtn.addEventListener('click', function () {
   scoresArray = [];
-  localStorage.setItem("scores", null);
-  document.querySelector("#createdHighScoreList").classList.add("hidden");
+  localStorage.setItem('scores', null);
+  document.querySelector('#createdHighScoreList').classList.add('hidden');
 });
 
 body
-  .querySelector("#preGameHighScoreLink")
-  .addEventListener("click", function () {
-    startGameView.setAttribute("data-previous", "true");
-    inGameView.setAttribute("data-previous", "false");
-    postGameView.setAttribute("data-previous", "false");
-    highscoreView.setAttribute("data-visible", "true");
+  .querySelector('#preGameHighScoreLink')
+  .addEventListener('click', function () {
+    startGameView.setAttribute('data-previous', 'true');
+    inGameView.setAttribute('data-previous', 'false');
+    postGameView.setAttribute('data-previous', 'false');
+    highscoreView.setAttribute('data-visible', 'true');
     displayHighscores();
   });
 
 body
-  .querySelector("#inGameHighScoreLink")
-  .addEventListener("click", function () {
-    startGameView.setAttribute("data-previous", "false");
-    inGameView.setAttribute("data-previous", "true");
-    postGameView.setAttribute("data-previous", "false");
-    highscoreView.setAttribute("data-visible", "true");
+  .querySelector('#inGameHighScoreLink')
+  .addEventListener('click', function () {
+    startGameView.setAttribute('data-previous', 'false');
+    inGameView.setAttribute('data-previous', 'true');
+    postGameView.setAttribute('data-previous', 'false');
+    highscoreView.setAttribute('data-visible', 'true');
     displayHighscores();
   });
 
 body
-  .querySelector("#postGameHighScoreLink")
-  .addEventListener("click", function () {
-    startGameView.setAttribute("data-previous", "false");
-    inGameView.setAttribute("data-previous", "false");
-    postGameView.setAttribute("data-previous", "true");
-    highscoreView.setAttribute("data-visible", "true");
+  .querySelector('#postGameHighScoreLink')
+  .addEventListener('click', function () {
+    startGameView.setAttribute('data-previous', 'false');
+    inGameView.setAttribute('data-previous', 'false');
+    postGameView.setAttribute('data-previous', 'true');
+    highscoreView.setAttribute('data-visible', 'true');
     displayHighscores();
   });
+
+initGame();
