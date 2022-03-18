@@ -1,4 +1,4 @@
-# codeQuiz
+# Code Quiz
 
 ## Purpose and Functionality
 
