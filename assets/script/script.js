@@ -174,7 +174,7 @@ function nextQuestion() {
  * This funciton ends the game.  It sets the score to equal the timeLeft and displays the score on the postGame screen
  */
 function endGame() {
-  finalScore = timeLeft; // might need to put some error handling in here, if timeLeft is negative (wrong answer clicked with less than 10 seconds left)
+  finalScore = timeLeft;
   document.querySelector('#finalScoreDisplay').textContent = finalScore;
 
   // this handles if the user was at the highscore view when the timer runs out
@@ -208,7 +208,7 @@ function displayHighscores() {
       let position = highScoreArray.indexOf(scoreLi) + 1;
       let initials = scoreLi.initials;
       let score = scoreLi.score;
-      scoreString += `<li>${position}.   ${score} --- ${initials} </li>`;
+      scoreString += `<li>${position}.   ${score}  -  ${initials} </li>`;
     });
     scoreString += '</ol>';
     document.querySelector('#highscoreContainer').appendChild(highScoreList);
