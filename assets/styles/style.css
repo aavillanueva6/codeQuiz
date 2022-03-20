@@ -1,9 +1,7 @@
 /* application wide styling */
 :root {
   --darkColor: #000000;
-  --darkColor75: #000000bf;
   --lightColor: #ffffff;
-  --lightColor75: #ffffffbf;
   --green: #00b000;
   --green1: #00b00003;
   --red: #b00000;
@@ -13,8 +11,8 @@
 }
 
 body {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
 }
 
 .visible {
@@ -32,8 +30,8 @@ button,
   font-size: larger;
   font-weight: bolder;
   color: var(--lightColor);
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
   border-radius: 5px;
   margin: 3px;
 }
